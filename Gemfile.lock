@@ -32,6 +32,7 @@ GEM
       concurrent-ruby (>= 1.1, < 1.4)
       mime-types (>= 3.0)
       websocket-driver (>= 0.6.0)
+    rake (13.2.1)
     uri (1.0.2)
     websocket-driver (0.7.7)
       base64
@@ -47,6 +48,7 @@ PLATFORMS
 DEPENDENCIES
   norairrecord (~> 0.2.0)
   puppeteer-ruby (~> 0.45.6)
+  rake (~> 13.2)
   whenever (~> 1.0)
 
 BUNDLED WITH
