@@ -1,7 +1,7 @@
 desc "fetch icon of most projectful ysws"
 task :fetch_ysws_icon do
   require_relative './airtable'
-  YSWSProgram.top_this_week_with_icon.download_icon!
+  (Config.get['enable_ysws_fridays'] ? YSWSProgram.top_this_week_with_icon : CommunityLogo.pick_logo).download_icon!
 end
 
 desc "fetch icon of most projectful ysws"
