@@ -28,7 +28,12 @@ module Poster
                 "okay, ",
                 "alright, ",
                 "hmmmm......",
-                ""
+                '',
+                '',
+                '',
+                '',
+                '',
+                ''
               ].sample).gsub('LOGO', l.name)
             },
             "accessory": {
