@@ -14,6 +14,10 @@ class Logo < Norairrecord::Table
     File.write("/tmp/icon.png", Net::HTTP.get(URI.parse(icon_url)))
     puts "ok!"
   end
+
+  def name
+    fields['Name']
+  end
 end
 
 class YSWSProgram < Logo

@@ -33,6 +33,7 @@ GEM
       mime-types (>= 3.0)
       websocket-driver (>= 0.6.0)
     rake (13.2.1)
+    slack-notifier (2.4.0)
     uri (1.0.2)
     websocket-driver (0.7.7)
       base64
@@ -46,9 +47,11 @@ PLATFORMS
   ruby
 
 DEPENDENCIES
+  faraday (~> 2.12)
   norairrecord (~> 0.2.0)
   puppeteer-ruby (~> 0.45.6)
   rake (~> 13.2)
+  slack-notifier (~> 2.4)
   whenever (~> 1.0)
 
 BUNDLED WITH

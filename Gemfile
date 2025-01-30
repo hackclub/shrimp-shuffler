@@ -9,3 +9,7 @@ gem "norairrecord", "~> 0.2.0"
 gem "whenever", "~> 1.0"
 
 gem "rake", "~> 13.2"
+
+gem "faraday", "~> 2.12"
+
+gem "slack-notifier", "~> 2.4"
