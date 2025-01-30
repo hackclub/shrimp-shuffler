@@ -1,11 +1,17 @@
+def seed_random
+  require 'securerandom'
+  srand(SecureRandom.random_number(1_000_000))
+end
+
 desc "fetch icon of most projectful ysws"
 task :fetch_ysws_icon do
   require_relative './airtable'
   (Config.get['enable_ysws_fridays'] ? YSWSProgram.top_this_week_with_icon : CommunityLogo.pick_logo).download_icon!
 end
 
-desc "fetch icon of most projectful ysws"
+desc "fetch random community icon"
 task :fetch_community_icon do
+  seed_random
   require_relative './airtable'
   require_relative './slack'
   Poster.log [
@@ -20,6 +26,7 @@ end
 
 desc "change the slack icon to /tmp/icon.png"
 task :update_slack do
+  seed_random
   require_relative './slack'
   Poster.log [
                'okay, here goes nothing...',
