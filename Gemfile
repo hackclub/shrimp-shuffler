@@ -2,14 +2,12 @@
 
 source "https://rubygems.org"
 
-gem "puppeteer-ruby", "~> 0.45.6"
-
 gem "norairrecord", "~> 0.2.0"
 
 gem "whenever", "~> 1.0"
 
 gem "rake", "~> 13.2"
 
-gem "faraday", "~> 2.12"
-
 gem "slack-notifier", "~> 2.4"
+
+gem "mechanize", "~> 2.14"

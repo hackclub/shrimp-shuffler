@@ -1,6 +1,6 @@
 FROM ruby:3.3.6-alpine
 
-RUN apk add --update nodejs npm build-base chromium ttf-freefont udev bash
+RUN apk add --update build-base bash
 
 WORKDIR /thing
 
