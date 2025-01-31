@@ -1,5 +1,6 @@
 require_relative './slack'
 require_relative './airtable'
+require_relative './browser'
 
 def seed_random
   require 'securerandom'
