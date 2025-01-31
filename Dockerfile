@@ -1,6 +1,6 @@
 FROM ruby:3.3.6-alpine
 
-RUN apk add --update build-base bash
+RUN apk add --update build-base bash imagemagick
 
 WORKDIR /thing
 

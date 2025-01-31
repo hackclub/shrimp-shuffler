@@ -27,6 +27,7 @@ end
 desc "change the slack icon to /tmp/icon.png"
 task :update_slack do
   seed_random
+  ICON_PATH = '/tmp/icon.png'
   require_relative './slack'
   # Poster.log [
   #              'okay, here goes nothing...',
@@ -35,7 +36,8 @@ task :update_slack do
   #            ].sample
   require_relative './browser'
   begin
-    set_icon('/tmp/icon.png')
+    rescale ICON_PATH
+    set_icon ICON_PATH
     # Poster.log [
     #              'i think that worked!',
     #              'that oughta do it!',

@@ -28,3 +28,7 @@ def set_icon(icon_file)
   form.field('cropbox').value = "0,0,1024"
   form.submit
 end
+
+def rescale(icon_file)
+  `magick #{icon_file} -resize 1024x1024 #{icon_file}`
+end
