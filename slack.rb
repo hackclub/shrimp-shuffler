@@ -35,6 +35,7 @@ module Poster
                 '',
                 ''
               ].sample).gsub('LOGO', l.name)
+              .sub(/and (.+e)ed all over the place/, 'and \1d all over the place')
             },
             "accessory": {
               "type": "image",
