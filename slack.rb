@@ -39,7 +39,7 @@ module Poster
             },
             "accessory": {
               "type": "image",
-              "image_url": l.icon_url,
+              "image_url": l.cdn_url,
               "alt_text": l.name
             }
           }

@@ -9,7 +9,7 @@ end
 
 desc "fetch icon of most projectful ysws"
 task :fetch_ysws_icon do
-  (Config.get['enable_ysws_fridays'] ? YSWSProgram.top_this_week_with_icon : CommunityLogo.pick_logo).download_icon!
+  (Config.get['enable_ysws_fridays'] ? YSWSProgram.top_this_week_with_icon : CommunityLogo.pick_logo).download_icon_and_cdn!
 end
 
 desc "fetch random community icon"
@@ -21,8 +21,8 @@ task :fetch_community_icon do
   #              "guess what time it is?"
   #            ].sample
   logo = CommunityLogo.pick_logo
+  logo.download_icon_and_cdn!
   Poster.logo(logo)
-  logo.download_icon!
 end
 
 desc "change the slack icon to /tmp/icon.png"

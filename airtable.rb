@@ -1,5 +1,6 @@
 require 'norairrecord'
 require 'net/http'
+require 'json'
 
 Norairrecord.base_url = ENV['AIRTABLE_ENDPOINT_URL'] if ENV['AIRTABLE_ENDPOINT_URL']
 Norairrecord.api_key = ENV['AIRTABLE_PAT']
@@ -9,10 +10,22 @@ class Logo < Norairrecord::Table
     fields.dig('Slack Icon', 0, 'url')
   end
 
-  def download_icon!
+  def cdn_url
+    fields['Icon – CDN Link']
+  end
+
+  def download_icon_and_cdn!
     puts "downloading icon..."
     File.write("/tmp/icon.png", Net::HTTP.get(URI.parse(icon_url)))
     puts "ok!"
+    hash = file_hash
+    if hash != fields['Icon – Last Hash']
+      puts "updating cdn link..."
+      patch(
+        'Icon – Last Hash' => hash,
+        'Icon – CDN Link' => upload_to_cdn(icon_url)
+      )
+    end
   end
 
   def name
@@ -70,4 +83,20 @@ class Config < Norairrecord::Table
       @config = fetch
     end
   end
+end
+
+def file_hash
+  Digest::SHA256.file('/tmp/icon.png').hexdigest
+end
+
+def upload_to_cdn(url)
+  resp = Net::HTTP.post(
+    URI.parse("https://cdn.hackclub.com/api/v3/new"),
+    [url].to_json,
+    {
+      'content-type' => 'application/json',
+      'authorization' => 'Bearer beans'
+    }
+  ).body
+  JSON.parse(resp).dig("files", 0, "deployedUrl")
 end
