@@ -10,7 +10,6 @@ class Logo < Norairrecord::Table
   def cdn_url = fields['Icon – CDN Link']
   def name = fields['Name']
 
-
   def download_icon_and_cdn!
     puts "downloading icon..."
     File.write("/tmp/icon.png", Net::HTTP.get(URI.parse(icon_url)))
