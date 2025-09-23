@@ -38,21 +38,19 @@ class CommunityLogo < Logo
   self.base_key = "appOOH0x03NEHw8Rt"
   self.table_name = 'tbl1blRyjt0AUVBvJ'
 
-  class << self
-    def pick_logo
-      if Config.get['override']
-        logo = find Config.get['override'].first
-        puts "overridden to #{logo['Name']}."
-        return logo
-      end
-      puts "sampling logos..."
-      candidates = records(filter: 'AND({Active}, {Slack Icon})', sort: { "Last Shown" => "asc" }, max_records: Config.get['randomize_count'])
-      logo = candidates.sample
-      raise "what?!" unless logo
-      logo.patch('Last Shown' => Time.now)
-      puts "picked #{logo['Name']}!"
-      logo
+  def self.pick_logo
+    if Config.get['override']
+      logo = find Config.get['override'].first
+      puts "overridden to #{logo['Name']}."
+      return logo
     end
+    puts "sampling logos..."
+    candidates = records(filter: 'AND({Active}, {Slack Icon})', sort: { "Last Shown" => "asc" }, max_records: Config.get['randomize_count'])
+    logo = candidates.sample
+    raise "what?!" unless logo
+    logo.patch('Last Shown' => Time.now)
+    puts "picked #{logo['Name']}!"
+    logo
   end
 end
 
