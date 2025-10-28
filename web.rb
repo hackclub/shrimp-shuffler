@@ -1,6 +1,8 @@
 require 'sinatra'
 require 'active_support'
 require 'active_support/cache'
+require 'active_support/core_ext/object'
+
 require_relative './airtable'
 
 configure do
@@ -33,7 +35,7 @@ def fetch_logos(single: false)
   
   @all_community_logos = CommunityLogo.where(
     'AND({Active}, {Slack Icon})',
-    sort: { "Last Shown" => "desc" },
+    sort: { "Last Shown" => "asc" },
     max_records:
   )
 
@@ -64,8 +66,8 @@ get '/' do
   fetch_logos
   
   now = Time.now
-  next_shuffle = if now.min < 29
-                   Time.new(now.year, now.month, now.day, now.hour, 29, 0)
+  next_shuffle = if now.min < 30
+                   Time.new(now.year, now.month, now.day, now.hour, 30, 0)
                  else
                    now + (60 - now.min) * 60 - now.sec
                  end

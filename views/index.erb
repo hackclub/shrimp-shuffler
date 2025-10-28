@@ -26,6 +26,19 @@
           gap: 0.75rem;
       }
 
+      .logo.current {
+          background: black;
+          color: white;
+      }
+
+      @media (prefers-color-scheme: dark) {
+          .logo.current {
+              background: white;
+              color: black;
+          }
+      }
+
+
       .logo-img {
           width: 100px;
           height: 100px;
@@ -47,18 +60,11 @@
 
 <h3>Possible icons: </h3>
 <i>(if you work here, use <a href="https://airtable.com/appOOH0x03NEHw8Rt/tbl1blRyjt0AUVBvJ/" target="_blank">this base</a> to add new icons to the pool!)</i>
-<div class="logo-grid">
-  <% @all_community_logos[1..].reverse.each do |logo| %>
-  <%= erb :logo, {}, logo: %>
-  <% end %>
-</div>
+<%= erb :logo_set, {}, logos: @all_community_logos %>
+
 
 <h3>Possible YSWS icons: </h3>
 <i>(if you're a program author, make sure your Unified DB "YSWS Programs" record has something in the <code>Slack Icon</code> field!)</i>
-<div class="logo-grid">
-  <% @all_ysws_logos[1..].each do |logo| %>
-    <%= erb :logo, {}, logo: %>
-  <% end %>
-</div>
+<%= erb :logo_set, {}, logos: @all_ysws_logos %>
 </body>
 </html>

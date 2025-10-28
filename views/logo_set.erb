@@ -1,0 +1,6 @@
+<div class="logo-grid">
+  <% logos.each do |logo| %>
+    <% current = (logo.id == @current_logo.id) %>
+    <%= erb :logo, {}, logo:, current: %>
+  <% end %>
+</div>

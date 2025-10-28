@@ -1,4 +1,6 @@
-<div class="logo">
+<% current ||= false %>
+<div class="logo<%= " current" if current %>">
   <img src="<%= logo.cdn_url || logo.icon_url %>" alt="<%= logo.name %>" class="logo-img"/>
-  <p class="logo-name"><%= logo.name %></p>
+  <p class="logo-name"><b><%= logo.name %></b></p>
+  <% if logo.creator.present? %><a class="logo-creator">by <%= logo.creator %></a><% end %>
 </div>
