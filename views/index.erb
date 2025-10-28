@@ -1,3 +1,4 @@
+<!DOCTYPE html>
 <html lang="en">
 <head>
   <style>
@@ -47,7 +48,7 @@
 <h3>Possible icons: </h3>
 <div class="logo-grid">
   <% @all_community_logos[1..].reverse.each do |logo| %>
-    <%= erb :logo, {}, logo: %>
+  <%= erb :logo, {}, logo: %>
   <% end %>
 </div>
 
