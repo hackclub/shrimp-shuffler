@@ -51,7 +51,7 @@ def fetch_logos(single: false)
                     if Config.get['override']
                       CommunityLogo.find Config.get['override'].first
                     else
-                      @all_community_logos.first
+                      @all_community_logos.last
                     end
                   end
   
