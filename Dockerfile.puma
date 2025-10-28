@@ -1,0 +1,14 @@
+FROM ruby:3.3.6-alpine
+
+RUN apk add --update build-base bash imagemagick
+
+WORKDIR /thing
+
+COPY Gemfile Gemfile.lock /thing/
+RUN bundle install
+
+COPY . /thing
+
+EXPOSE 9292
+
+CMD ["bundle", "exec", "puma", "-C", "config/puma.rb"]
