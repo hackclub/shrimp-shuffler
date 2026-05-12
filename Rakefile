@@ -1,9 +1,9 @@
-require_relative "./slack"
-require_relative "./airtable"
-require_relative "./browser"
+require_relative './slack'
+require_relative './airtable'
+require_relative './browser'
 
 def seed_random
-  require "securerandom"
+  require 'securerandom'
   srand(SecureRandom.random_number(1_000_000))
 end
 
@@ -17,8 +17,8 @@ desc "fetch random community icon"
 task :fetch_community_icon do
   seed_random
   # Poster.log [
-  #              "it"s about that time...",
-  #              "hey, it"s that time again!",
+  #              "it's about that time...",
+  #              "hey, it's that time again!",
   #              "guess what time it is?"
   #            ].sample
   logo = CommunityLogo.pick_logo
@@ -31,31 +31,31 @@ desc "change the slack icon to the current logo"
 task :update_slack do
   seed_random
   # Poster.log [
-  #              "okay, here goes nothing...",
-  #              "here we go!",
+  #              'okay, here goes nothing...',
+  #              'here we go!',
   #              "okay, i"m gonna try to change it..."
   #            ].sample
   begin
     set_icon ENV["SLACK_ICON_URL"]
     # Poster.log [
-    #              "i think that worked!",
-    #              "that oughta do it!",
-    #              "done! i think?"
+    #              'i think that worked!',
+    #              'that oughta do it!',
+    #              'done! i think?'
     #            ].sample
   rescue StandardError => e
     Poster.log [
-      "uh oh, we got a problem....",
-      "oh no!",
-      "whoops!"
+          'uh oh, we got a problem....',
+          'oh no!',
+          'whoops!'
     ].sample + " hey <@U06QK6AG3RD>: #{e.message}! seems like the bot token stopped working?"
   end
 end
 
 desc "set the ysws thing"
-task ysws: %i[fetch_ysws_icon update_slack]
+task :ysws => [:fetch_ysws_icon, :update_slack]
 
 desc "set a random community logo!"
-task shuffle: %i[fetch_community_icon update_slack]
+task :shuffle => [:fetch_community_icon, :update_slack]
 
 task :its_over do
   seed_random
@@ -64,5 +64,5 @@ end
 
 task :were_so_back do
   seed_random
-  Poster.log ["now back to your regularly scheduled programming.", "we\"re back!", "we\"re so back!"].sample
+  Poster.log ["now back to your regularly scheduled programming." "we're back!", "we're so back!"].sample
 end
