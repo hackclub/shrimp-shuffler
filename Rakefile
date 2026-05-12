@@ -9,7 +9,9 @@ end
 
 desc "fetch icon of most projectful ysws"
 task :fetch_ysws_icon do
-  (Config.get['enable_ysws_fridays'] ? YSWSProgram.top_this_week_with_icon : CommunityLogo.pick_logo).download_icon_and_cdn!
+  logo = Config.get["enable_ysws_fridays"] ? YSWSProgram.top_this_week_with_icon : CommunityLogo.pick_logo
+  logo.download_icon_and_cdn!
+  ENV["SLACK_ICON_URL"] = logo.cdn_url
 end
 
 desc "fetch random community icon"
@@ -22,21 +24,20 @@ task :fetch_community_icon do
   #            ].sample
   logo = CommunityLogo.pick_logo
   logo.download_icon_and_cdn!
+  ENV["SLACK_ICON_URL"] = logo.cdn_url
   Poster.logo(logo)
 end
 
-desc "change the slack icon to /tmp/icon.png"
+desc "change the slack icon to the current logo"
 task :update_slack do
   seed_random
-  ICON_PATH = '/tmp/icon.png'
   # Poster.log [
   #              'okay, here goes nothing...',
   #              'here we go!',
   #              "okay, i'm gonna try to change it..."
   #            ].sample
   begin
-    rescale ICON_PATH
-    set_icon ICON_PATH
+    set_icon ENV["SLACK_ICON_URL"]
     # Poster.log [
     #              'i think that worked!',
     #              'that oughta do it!',
@@ -47,7 +48,7 @@ task :update_slack do
                  'uh oh, we got a problem....',
                  'oh no!',
                  'whoops!'
-               ].sample + " hey <@U06QK6AG3RD>: #{e.message}! maybe you need to rotate your xoxd?"
+               ].sample + " hey <@U06QK6AG3RD>: #{e.message}! seems like the bot token stopped working?"
   end
 end
 

@@ -1,32 +1,37 @@
-require 'mechanize'
+require 'net/http'
+require 'json'
 
-def set_icon(icon_file)
-  raise "please set SLACK_XOXD!" unless (xoxd = ENV['SLACK_XOXD'])
-  raise "please set SLACK_SLUG!" unless (slug = ENV['SLACK_SLUG'])
+API_SET_ICON_URL = 'https://slack.com/api/admin.teams.settings.setIcon'
 
-  agent = Mechanize.new
+def set_icon(icon_file_or_url)
+  raise 'please set SLACK_TOKEN!' unless (token = ENV['SLACK_TOKEN'])
+  raise 'please set SLACK_TEAM_ID!' unless (team_id = ENV['SLACK_TEAM_ID'])
 
-  agent.user_agent = "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/18.1.1 Safari/605.1.15"
+  image_url = if icon_file_or_url.to_s.start_with?('http://', 'https://')
+                icon_file_or_url
+              else
+                ENV['SLACK_ICON_URL']
+              end
+  raise 'please set SLACK_ICON_URL!' unless image_url
 
-  agent.cookie_jar << Mechanize::Cookie.new(:domain => ".slack.com", :name => 'd', :value => xoxd, :path => '/', :expires => (Date.today + 1).to_s)
+  uri = URI(API_SET_ICON_URL)
+  req = Net::HTTP::Post.new(uri)
+  req['Authorization'] = "Bearer #{token}"
+  req['Content-Type'] = 'application/json; charset=utf-8'
+  req.body = {
+    team_id: team_id,
+    image_url: image_url
+  }.to_json
 
-  page = agent.get("https://#{slug}.slack.com/customize/icon")
+  response = Net::HTTP.start(uri.hostname, uri.port, use_ssl: true) do |http|
+    http.request(req)
+  end
+  data = JSON.parse(response.body)
 
-  form = page.forms.find { |f| f.action == "/customize/icon" }
-  raise StandardError, "couldn't find form 1!" unless form
+  unless response.is_a?(Net::HTTPSuccess)
+    raise "Slack HTTP error: #{response.code} #{response.message}: #{data.inspect}"
+  end
+  raise "Slack API error: #{data.inspect}" unless data['ok']
 
-  upload = form.file_upload('img')
-  raise StandardError, "couldn't find upload!?" unless upload
-  upload.file_name = icon_file
-
-  page = form.submit
-
-  form = page.forms.first
-  raise StandardError, "couldn't find crop form!" unless form
-
-  # TODO: maybe parse image for size? but who gaf
-  form.field('cropbox').value = "0,0,1024"
-  form.submit
+  true
 end
-
-def rescale(icon_file) = `magick #{icon_file} -resize 1024x1024 #{icon_file}`

@@ -67,6 +67,8 @@ GEM
     nkf (0.2.0)
     nokogiri (1.18.3-arm64-darwin)
       racc (~> 1.4)
+    nokogiri (1.18.3-x86_64-linux-gnu)
+      racc (~> 1.4)
     norairrecord (0.2.0)
       faraday (>= 1.0, < 3.0)
       faraday-net_http_persistent
@@ -109,6 +111,7 @@ GEM
 
 PLATFORMS
   arm64-darwin-24
+  x86_64-linux
 
 DEPENDENCIES
   activesupport (~> 8.0)
