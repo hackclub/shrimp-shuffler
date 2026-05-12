@@ -7,6 +7,7 @@ def seed_random
   srand(SecureRandom.random_number(1_000_000))
 end
 
+desc "fetch icon of most projectful ysws"
 task :fetch_ysws_icon do
   logo = Config.get["enable_ysws_fridays"] ? YSWSProgram.top_this_week_with_icon : CommunityLogo.pick_logo
   logo.download_icon_and_cdn!
@@ -33,7 +34,7 @@ task :update_slack do
   # Poster.log [
   #              'okay, here goes nothing...',
   #              'here we go!',
-  #              "okay, i"m gonna try to change it..."
+  #              "okay, i'm gonna try to change it..."
   #            ].sample
   begin
     set_icon ENV["SLACK_ICON_URL"]
@@ -44,10 +45,10 @@ task :update_slack do
     #            ].sample
   rescue StandardError => e
     Poster.log [
-          'uh oh, we got a problem....',
-          'oh no!',
-          'whoops!'
-    ].sample + " hey <@U06QK6AG3RD>: #{e.message}! seems like the bot token stopped working?"
+                 'uh oh, we got a problem....',
+                 'oh no!',
+                 'whoops!'
+               ].sample + " hey <@U06QK6AG3RD>: #{e.message}! seems like the bot token stopped working?"
   end
 end
 

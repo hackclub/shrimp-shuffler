@@ -1,5 +1,3 @@
-# frozen_string_literal: true
-
 require 'net/http'
 require 'json'
 
@@ -25,7 +23,9 @@ def set_icon(icon_file_or_url)
     image_url: image_url
   }.to_json
 
-  response = Net::HTTP.start(uri.hostname, uri.port, use_ssl: true) { |http| http.request(req) }
+  response = Net::HTTP.start(uri.hostname, uri.port, use_ssl: true) do |http|
+    http.request(req)
+  end
   data = JSON.parse(response.body)
 
   unless response.is_a?(Net::HTTPSuccess)
