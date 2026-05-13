@@ -45,15 +45,11 @@ def fetch_logos(single: false)
     max_records:
   )
 
-  @current_logo = if Date.today.friday?
-                    @all_ysws_logos.first
-                  else
-                    if Config.get['override']
-                      CommunityLogo.find Config.get['override'].first
-                    else
-                      @all_community_logos.last
-                    end
-                  end
+  current_url = Config.get['current']
+  all_logos = @all_community_logos + @all_ysws_logos
+  @current_logo = all_logos.find { |l| l.cdn_url == current_url } ||
+    CommunityLogo.where("({Icon – CDN Link} = '#{current_url}')", max_records: 1).first ||
+    YSWSProgram.where("({Icon – CDN Link} = '#{current_url}')", max_records: 1).first
   
   settings.cache.write(cache_key, {
     community: @all_community_logos,
