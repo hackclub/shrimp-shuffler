@@ -12,7 +12,7 @@ gem "slack-notifier", "~> 2.4"
 
 gem "sinatra", "~> 4.2"
 
-gem "activesupport", "~> 8.0"
+gem "activesupport", "~> 8.1"
 
 gem "rackup", "~> 2.2"
 
