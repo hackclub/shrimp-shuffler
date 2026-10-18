@@ -62,7 +62,7 @@ class Config < Norairrecord::Table
   self.table_name = "tblN8zhtIgHBQLHBm"
 
   class << self
-    def fetch = find "recgEG7YTjRcKI1jq?"
+    def fetch = find("recgEG7YTjRcKI1jq?")
     def get = @config ||= fetch
     def refresh = @config = fetch
   end
