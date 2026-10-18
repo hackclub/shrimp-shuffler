@@ -1,7 +1,7 @@
 GEM
   remote: https://rubygems.org/
   specs:
-    activesupport (8.1.2.1)
+    activesupport (8.1.4)
       base64
       bigdecimal
       concurrent-ruby (~> 1.0, >= 1.3.1)
@@ -15,42 +15,44 @@ GEM
       tzinfo (~> 2.0, >= 2.0.5)
       uri (>= 0.13.1)
     base64 (0.3.0)
-    bigdecimal (4.1.2)
+    bigdecimal (4.1.3)
     chronic (0.10.2)
-    concurrent-ruby (1.3.6)
+    concurrent-ruby (1.3.8)
     connection_pool (3.0.2)
     drb (2.2.3)
-    faraday (2.14.1)
-      faraday-net_http (>= 2.0, < 3.5)
+    faraday (2.15.0)
+      faraday-net_http (>= 2.0, < 3.6)
       json
       logger
-    faraday-net_http (3.4.2)
+    faraday-net_http (3.5.0)
       net-http (~> 0.5)
-    faraday-net_http_persistent (2.3.0)
+    faraday-net_http_persistent (2.3.1)
       faraday (~> 2.5)
       net-http-persistent (>= 4.0.4, < 5)
-    i18n (1.14.8)
+    i18n (1.15.2)
       concurrent-ruby (~> 1.0)
-    json (2.19.9)
+    json (3.1.0)
     logger (1.7.0)
     minitest (6.0.6)
       drb (~> 2.0)
       prism (~> 1.5)
-    mustermann (3.0.4)
-      ruby2_keywords (~> 0.0.1)
-    net-http (0.9.1)
+    mustermann (3.1.1)
+    net-http (0.10.0)
+      net-protocol (>= 0.3.0)
       uri (>= 0.11.1)
     net-http-persistent (4.0.8)
       connection_pool (>= 2.2.4, < 4)
-    nio4r (2.7.4)
-    norairrecord (0.2.0)
+    net-protocol (0.4.0)
+      timeout
+    nio4r (2.7.5)
+    norairrecord (0.5.1)
       faraday (>= 1.0, < 3.0)
       faraday-net_http_persistent
       net-http-persistent
     prism (1.9.0)
-    puma (7.1.0)
+    puma (8.0.2)
       nio4r (~> 2.0)
-    rack (3.2.6)
+    rack (3.2.7)
     rack-protection (4.2.1)
       base64 (>= 0.1.0)
       logger (>= 1.6.0)
@@ -58,10 +60,9 @@ GEM
     rack-session (2.1.2)
       base64 (>= 0.1.0)
       rack (>= 3.0.0)
-    rackup (2.2.1)
+    rackup (2.3.1)
       rack (>= 3)
-    rake (13.2.1)
-    ruby2_keywords (0.0.5)
+    rake (13.4.2)
     securerandom (0.4.1)
     sinatra (4.2.1)
       logger (>= 1.6.0)
@@ -71,26 +72,32 @@ GEM
       rack-session (>= 2.0.0, < 3)
       tilt (~> 2.0)
     slack-notifier (2.4.0)
-    tilt (2.6.1)
+    tilt (2.9.0)
+    timeout (0.6.1)
     tzinfo (2.0.6)
       concurrent-ruby (~> 1.0)
-    uri (1.1.1)
-    whenever (1.0.0)
+    uri (1.1.2)
+    whenever (1.1.3)
       chronic (>= 0.6.3)
 
 PLATFORMS
+  aarch64-linux
   arm64-darwin-24
+  arm64-darwin-27
   x86_64-linux
 
 DEPENDENCIES
-  activesupport (~> 8.1)
-  norairrecord (~> 0.2.0)
-  puma (~> 7.1)
-  rackup (~> 2.2)
-  rake (~> 13.2)
+  activesupport (~> 8.1, >= 8.1.4)
+  norairrecord (~> 0.5.1)
+  puma (~> 8.0, >= 8.0.2)
+  rackup (~> 2.3, >= 2.3.1)
+  rake (~> 13.4, >= 13.4.2)
   sinatra (~> 4.2)
   slack-notifier (~> 2.4)
-  whenever (~> 1.0)
+  whenever (~> 1.1, >= 1.1.3)
+
+RUBY VERSION
+  ruby 3.4.10
 
 BUNDLED WITH
-   2.6.9
+  4.0.20

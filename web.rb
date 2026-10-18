@@ -58,6 +58,11 @@ def fetch_logos(single: false)
   })
 end
 
+get '/health' do
+  content_type :plaintext
+  'ok'
+end
+
 get '/' do
   fetch_logos
   

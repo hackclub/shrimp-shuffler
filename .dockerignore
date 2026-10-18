@@ -1,0 +1,7 @@
+.git
+.bundle
+vendor/bundle
+.env
+.env.*
+!.env.example
+*.log

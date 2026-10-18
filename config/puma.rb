@@ -4,8 +4,5 @@ threads threads_count, threads_count
 
 preload_app!
 
-port ENV.fetch('PORT', 9292)
+bind "tcp://0.0.0.0:#{ENV.fetch('PORT', 9292)}"
 environment ENV.fetch('RACK_ENV', 'development')
-
-on_worker_boot do
-end
